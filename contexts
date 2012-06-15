@@ -1,0 +1,69 @@
+#!/usr/bin/python
+import sys
+import os
+
+class Context:
+
+  def __init__(self):
+
+      self.ide="vim -o"
+      self.context_dir = ".contexts"
+
+  def open(self, context):
+      self.context_file = self.context_dir + "/" + context
+      print self.context_file
+      f = open(self.context_file, 'r')
+      args = f.read().replace("\n", ' ')
+      os.system(self.ide + " " + args)
+
+  def exists(self, context):
+      self.context_file = self.context_dir + "/" + context
+      return os.path.exists(self.context_file)
+
+  def create(self, context):
+      input = raw_input("Add files separed by space: ")
+      if(False == os.path.exists(self.context_dir)):
+          os.mkdir(self.context_dir)
+      filename = self.context_dir + "/"+ context
+      f = open(filename,"w")
+      f.write(input)
+      f.close()
+
+  def add(self, context, input):
+      if(False == os.path.exists(self.context_dir)):
+          os.mkdir(self.context_dir)
+      filename = self.context_dir + "/"+ context
+      f = open(filename,"a")
+      f.write(" " +input)
+      f.close()
+
+  def list(self):
+      if(False == os.path.exists(self.context_dir)):
+          print "There isn't a context dir"
+          return False
+      for filename in os.listdir(self.context_dir):
+         print  filename
+
+  def remove(self, context):
+      if(False == os.path.exists(self.context_dir + '/' + context)):
+          print "There isn't such a context called: " + context
+          return False
+      os.remove(self.context_dir + '/' + context)
+ 
+
+argv1 = sys.argv[1]
+c = Context()
+if(argv1):
+    if(argv1 == 'ls'):
+         c.list()
+         exit()
+    if(argv1 == 'rm'):
+         c.remove(sys.argv[2])
+         exit()
+    if(argv1 == 'add'):
+         c.add(sys.argv[2], sys.argv[3])
+         exit()
+    if(c.exists(argv1)):
+         c.open(argv1)
+    else:
+         c.create(argv1)
