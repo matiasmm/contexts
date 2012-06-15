@@ -32,8 +32,7 @@ Open your context
 -----------------
 
     contexts bug123
-
-# It's going to open your files with vim, but you can edit the file to open it with another editor or ide.
+    # It's going to open your files with vim, but you can edit the file to open it with another editor or ide.
 
 
 List all your contexts
