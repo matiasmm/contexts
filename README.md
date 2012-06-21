@@ -7,8 +7,8 @@ INSTALL
 =======
 
     git clone git://github.com/matubaum/contexts.git
-    cp contexts/contexts ~/bin/contexts
-    chmod u+x ~/bin/contexts
+    chmod +x contexts/contexts
+    sudo ln -s contexts/contexts /usr/local/bin/contexts
 
 
 USAGE
